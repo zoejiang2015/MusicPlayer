@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport" content="with=device-with, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="musicPlayer.css">
+    <title>Zoe播放器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https//g.alicdn.com/de/prismplayer/2.1.0/aliplayer-min.js"></script> -->
+
+<body onload="demo()">
+    <div id="player">
+        <div id="header">
+            <span>Zoe's music player</span>
+            <div class="search">
+                <input type="text" autocomplete="off" placeholder="请输入歌手名/歌曲名" v-model="query"
+                    @keyup.enter="searchMusic">
+                <input type="button" value="搜索" class="button" @click="searchMusic"></input>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="song_wrapper">
+                <li v-for="item in musicList" @click=playMusic(item.id)>{{item.name}}</li>
+            </div>
+            <div class="music_cover">
+                <img :src="musicCover" v-bind:start_play="isPlaying" id="img_music"></img>
+            </div>
+
+            <div class="hotcomments">
+                <div class="title">热门评论</div>
+                <div v-for="item in commentList" class="comment">
+                    <img :src="item.user.avatarUrl" alt="">
+                    <div class="name">{{item.user.nickname}}</div>
+                    <div class="detail">
+                        {{item.content}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="audioPlayer">
+            <audio ref="audio" @play="play" @pause="pause" :src="musicUrl" controls autoplay loop
+                class="myaudio"></audio>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script>
+        function demo(){
+            document.getElementById("img_music").src="playerimg.jpg";
+            // alert("test")
+        }
+    </script>
+</body>
+</head>
+
+</html>
